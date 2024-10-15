@@ -1,0 +1,23 @@
+# .htaccess
+
+# Enable URL rewriting
+RewriteEngine On
+
+# If the requested file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite all other URLs to index.php or to the appropriate controller
+# Adjust the RewriteRule as per your routing setup
+
+# Example: Redirect all requests to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Set default character encoding
+AddDefaultCharset UTF-8
+
+# Deny access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|phar|sh|sql|bak)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
