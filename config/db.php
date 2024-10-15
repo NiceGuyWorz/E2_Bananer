@@ -1,19 +1,30 @@
+<?php
 // config/db.php
-$host = 'localhost';
-$db   = 'nombre_base_datos';
-$user = 'usuario';
-$pass = 'contraseña';
-$charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+// Database credentials
+$host     = 'localhost';       // Your database host
+$db       = 'academia_db';     // The name of your database
+$user     = 'postgres';        // Your PostgreSQL username
+$pass     = 'your_password';   // Your PostgreSQL password
+$port     = '5433';            // The default PostgreSQL port
+$charset  = 'utf8';            // Character set
+
+// Data Source Name (DSN)
+$dsn = "pgsql:host=$host;port=$port;dbname=$db;user=$user;password=$pass";
+
+// PDO options
 $options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Throw exceptions on errors
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Fetch associative arrays
+    PDO::ATTR_EMULATE_PREPARES   => false,                  // Use real prepared statements
 ];
 
+// Create a PDO instance
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO($dsn, null, null, $options);
 } catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    // Handle connection errors
+    echo 'Connection failed: ' . $e->getMessage();
+    exit;
 }
+?>
